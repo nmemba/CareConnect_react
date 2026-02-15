@@ -12,7 +12,7 @@ import { Medication } from '../types';
 
 export const MedicationsScreen: React.FC = () => {
   const navigation = useNavigation() as any;
-  const { medications, settings } = useApp();
+  const { medications } = useApp();
   const [filter, setFilter] = useState<'all' | 'due' | 'refill'>('all');
 
   const filteredMedications = medications.filter((med) => {

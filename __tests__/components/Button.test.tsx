@@ -133,11 +133,9 @@ describe('Button Component', () => {
       
       const button = getByRole('button');
       expect(button.props.style).toMatchObject(
-        expect.arrayContaining([
-          expect.objectContaining({
-            width: '100%',
-          }),
-        ])
+        expect.objectContaining({
+          width: '100%',
+        })
       );
     });
   });
@@ -150,9 +148,7 @@ describe('Button Component', () => {
       );
       
       const button = getByRole('button');
-      expect(button.props.style).toMatchObject(
-        expect.arrayContaining([expect.objectContaining(customStyle)])
-      );
+      expect(button.props.style).toMatchObject(expect.objectContaining(customStyle));
     });
   });
 });

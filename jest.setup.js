@@ -13,19 +13,23 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
 }));
 
 // Mock react-native-biometrics
-jest.mock('react-native-biometrics', () => ({
-  BiometryTypes: {
-    TouchID: 'TouchID',
-    FaceID: 'FaceID',
-    Biometrics: 'Biometrics',
-  },
-  createKeys: jest.fn(() => Promise.resolve({ publicKey: 'mockPublicKey' })),
-  biometricKeysExist: jest.fn(() => Promise.resolve({ keysExist: true })),
-  deleteKeys: jest.fn(() => Promise.resolve({ keysDeleted: true })),
-  createSignature: jest.fn(() => Promise.resolve({ success: true, signature: 'mockSignature' })),
-  simplePrompt: jest.fn(() => Promise.resolve({ success: true })),
-  isSensorAvailable: jest.fn(() => Promise.resolve({ available: true, biometryType: 'FaceID' })),
-}));
+jest.mock('react-native-biometrics', () => {
+  return jest.fn().mockImplementation(() => {
+    return {
+      BiometryTypes: {
+        TouchID: 'TouchID',
+        FaceID: 'FaceID',
+        Biometrics: 'Biometrics',
+      },
+      createKeys: jest.fn(() => Promise.resolve({ publicKey: 'mockPublicKey' })),
+      biometricKeysExist: jest.fn(() => Promise.resolve({ keysExist: true })),
+      deleteKeys: jest.fn(() => Promise.resolve({ keysDeleted: true })),
+      createSignature: jest.fn(() => Promise.resolve({ success: true, signature: 'mockSignature' })),
+      simplePrompt: jest.fn(() => Promise.resolve({ success: true })),
+      isSensorAvailable: jest.fn(() => Promise.resolve({ available: true, biometryType: 'FaceID' })),
+    };
+  });
+});
 
 // Mock react-native-haptic-feedback
 jest.mock('react-native-haptic-feedback', () => ({
@@ -47,6 +51,30 @@ jest.mock('react-native-toast-message', () => ({
   hide: jest.fn(),
   __esModule: true,
   default: () => null,
+}));
+
+// Mock react-native-gesture-handler
+jest.mock('react-native-gesture-handler', () => ({
+  Swipeable: ({ children }) => children,
+  DrawerLayout: ({ children }) => children,
+  State: {},
+  PanGestureHandler: ({ children }) => children,
+  BaseButton: ({ children }) => children,
+  RectButton: ({ children }) => children,
+  TapGestureHandler: ({ children }) => children,
+  RotationGestureHandler: ({ children }) => children,
+  FlingGestureHandler: ({ children }) => children,
+  ForceTouchGestureHandler: ({ children }) => children,
+  LongPressGestureHandler: ({ children }) => children,
+  PinchGestureHandler: ({ children }) => children,
+  NativeViewGestureHandler: ({ children }) => children,
+  RawButton: ({ children }) => children,
+  BorderlessButton: ({ children }) => children,
+  TextInput: ({ children }) => children,
+  ScrollView: ({ children }) => children,
+  FlatList: ({ children }) => children,
+  GestureHandlerRootView: ({ children }) => children,
+  Directions: {},
 }));
 
 // Mock @react-navigation
